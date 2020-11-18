@@ -218,8 +218,6 @@ describe('app routes', () => {
       expect(expectation).toEqual(isTrue);
     });
 
-
-
     test('get search results from trendinglist endpoint', async() => {
 
       const expectation = true;
@@ -239,6 +237,28 @@ describe('app routes', () => {
 
       expect(expectation).toEqual(isTrue);
     });
+
+
+    test('get search results from categories endpoint', async() => {
+
+      const expectation = true;
+
+      let isTrue = false;
+      
+      const data = await fakeRequest(app)
+        .get('/categories')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      if(data.body.data[0].name && data.body.data[0].subcategories[0].name && data.body.data[0].gif['id']) {
+        isTrue = true;
+      } else {
+        isTrue = false;
+      }
+
+      expect(expectation).toEqual(isTrue);
+    });
+
 
 
 
