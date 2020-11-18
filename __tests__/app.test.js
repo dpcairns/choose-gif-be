@@ -185,11 +185,11 @@ describe('app routes', () => {
       let isTrue = false;
       
       const data = await fakeRequest(app)
-        .get('/search?query=cart/trash')
+        .get('/search/2p15M2c5lmc7u')
         .expect('Content-Type', /json/)
         .expect(200);
 
-      if(data.body.data[0].id && data.body.data[0].title) {
+      if(data.body.data.id === '2p15M2c5lmc7u' && data.body.data.title === 'trash GIF') {
         isTrue = true;
       } else {
         isTrue = false;
@@ -229,7 +229,7 @@ describe('app routes', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      if(data.body.data[0] && data.body.data[1]) {
+      if(data.body.data.length > 10 && data.body.data[1]) {
         isTrue = true;
       } else {
         isTrue = false;
@@ -237,7 +237,6 @@ describe('app routes', () => {
 
       expect(expectation).toEqual(isTrue);
     });
-
 
     test('get search results from categories endpoint', async() => {
 
