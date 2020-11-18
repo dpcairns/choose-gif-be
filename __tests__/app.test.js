@@ -31,35 +31,31 @@ describe('app routes', () => {
       return client.end(done);
     });
 
-    test('returns animals', async() => {
+    test('create new favorite', async() => {
 
-      const expectation = [
+      const newFavorites =
         {
-          'id': 1,
-          'name': 'bessie',
-          'coolfactor': 3,
-          'owner_id': 1
-        },
-        {
-          'id': 2,
-          'name': 'jumpy',
-          'coolfactor': 4,
-          'owner_id': 1
-        },
-        {
-          'id': 3,
-          'name': 'spot',
-          'coolfactor': 10,
-          'owner_id': 1
-        }
-      ];
+          giphy_id: 'cfuL5gqFDreXxkWPPP',
+          title: 'Rainbow Pizza'
+        };
 
-      // const data = await fakeRequest(app)
-      //   .get('/animals')
-      //   .expect('Content-Type', /json/)
-      //   .expect(200);
+      const expectation = 
+      {
+        giphy_id: 'cfuL5gqFDreXxkWPPP',
+        id: 4,
+        owner_id: 2,
+        title: 'Rainbow Pizza'
+      };
+      
 
-      expect(true).toEqual(true);
+      const data = await fakeRequest(app)
+        .post('/api/favorites')
+        .set('Authorization', token)
+        .send(newFavorites)
+        .expect('Content-Type', /json/)
+        .expect(200);
+console.log(token);
+      expect(expectation).toEqual(data.body);
     });
   });
 });
