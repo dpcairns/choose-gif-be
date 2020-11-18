@@ -220,6 +220,29 @@ describe('app routes', () => {
 
 
 
+    test('get search results from trendinglist endpoint', async() => {
+
+      const expectation = true;
+
+      let isTrue = false;
+      
+      const data = await fakeRequest(app)
+        .get('/trendinglist')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      if(data.body.data[0] && data.body.data[1]) {
+        isTrue = true;
+      } else {
+        isTrue = false;
+      }
+
+      expect(expectation).toEqual(isTrue);
+    });
+
+
+
+
 
 
 
