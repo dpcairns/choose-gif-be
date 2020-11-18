@@ -39,13 +39,28 @@ describe('app routes', () => {
           title: 'Rainbow Pizza'
         };
 
+      const newFavorites2 =
+        {
+          giphy_id: 'cfuL5gqFDreXxkWQQQ',
+          title: 'Qwerty'
+        };
+
+
       const expectation = 
-      {
-        giphy_id: 'cfuL5gqFDreXxkWPPP',
-        id: 4,
-        owner_id: 2,
-        title: 'Rainbow Pizza'
-      };
+        {
+          giphy_id: 'cfuL5gqFDreXxkWPPP',
+          id: 4,
+          owner_id: 2,
+          title: 'Rainbow Pizza'
+        }
+
+      const expectation2 = 
+        {
+          giphy_id: 'cfuL5gqFDreXxkWQQQ',
+          id: 5,
+          owner_id: 2,
+          title: 'Qwerty'
+        };
       
 
       const data = await fakeRequest(app)
@@ -54,8 +69,49 @@ describe('app routes', () => {
         .send(newFavorites)
         .expect('Content-Type', /json/)
         .expect(200);
-console.log(token);
+
+      const data2 = await fakeRequest(app)
+        .post('/api/favorites')
+        .set('Authorization', token)
+        .send(newFavorites2)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+
+      expect(expectation).toEqual(data.body);
+      expect(expectation2).toEqual(data2.body);
+    });
+
+    test('get all favorites', async() => {
+
+      const expectation = [
+        {
+          giphy_id: 'cfuL5gqFDreXxkWPPP',
+          id: 4,
+          owner_id: 2,
+          title: 'Rainbow Pizza'
+        },
+        {
+          giphy_id: 'cfuL5gqFDreXxkWQQQ',
+          id: 5,
+          owner_id: 2,
+          title: 'Qwerty'
+        }
+      ];
+
+      const data = await fakeRequest(app)
+        .get('/api/favorites')
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
       expect(expectation).toEqual(data.body);
     });
+
+
+
+
+
+
   });
 });
