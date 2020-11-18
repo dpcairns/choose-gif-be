@@ -178,6 +178,27 @@ describe('app routes', () => {
       expect(expectation).toEqual(isTrue);
     });
 
+    test('get search results from search by id', async() => {
+
+      const expectation = true;
+
+      let isTrue = false;
+      
+      const data = await fakeRequest(app)
+        .get('/search?query=cart/trash')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      if(data.body.data[0].id && data.body.data[0].title) {
+        isTrue = true;
+      } else {
+        isTrue = false;
+      }
+
+      expect(expectation).toEqual(isTrue);
+    });
+
+
 
 
 
