@@ -108,6 +108,42 @@ describe('app routes', () => {
       expect(expectation).toEqual(data.body);
     });
 
+    test('delete one favorite', async() => {
+
+      const deletedFavorite = 
+        {
+          giphy_id: 'cfuL5gqFDreXxkWPPP',
+          id: 4,
+          owner_id: 2,
+          title: 'Rainbow Pizza'
+        };
+      
+      const expectation = 
+        {
+          giphy_id: 'cfuL5gqFDreXxkWPPP',
+          id: 4,
+          owner_id: 2,
+          title: 'Rainbow Pizza'
+        };
+
+
+      const data = await fakeRequest(app)
+        .delete(`/api/favorites/${deletedFavorite.giphy_id}`)
+        .set('Authorization', token)
+        // .send(deletedFavorite)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      await fakeRequest(app)
+        .get('/api/favorites')
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(expectation).toEqual(data.body);
+    });
+
+
 
 
 
