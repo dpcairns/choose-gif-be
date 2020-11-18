@@ -45,14 +45,13 @@ describe('app routes', () => {
           title: 'Qwerty'
         };
 
-
       const expectation = 
         {
           giphy_id: 'cfuL5gqFDreXxkWPPP',
           id: 4,
           owner_id: 2,
           title: 'Rainbow Pizza'
-        }
+        };
 
       const expectation2 = 
         {
@@ -62,7 +61,6 @@ describe('app routes', () => {
           title: 'Qwerty'
         };
       
-
       const data = await fakeRequest(app)
         .post('/api/favorites')
         .set('Authorization', token)
@@ -76,7 +74,6 @@ describe('app routes', () => {
         .send(newFavorites2)
         .expect('Content-Type', /json/)
         .expect(200);
-
 
       expect(expectation).toEqual(data.body);
       expect(expectation2).toEqual(data2.body);
@@ -108,6 +105,33 @@ describe('app routes', () => {
       expect(expectation).toEqual(data.body);
     });
 
+
+
+
+    test('get one favorite by id', async() => {
+
+      const expectation = 
+        {
+          giphy_id: 'cfuL5gqFDreXxkWPPP',
+          id: 4,
+          owner_id: 2,
+          title: 'Rainbow Pizza'
+        };
+      
+      const data = await fakeRequest(app)
+        .get('/api/favorites/cfuL5gqFDreXxkWPPP')
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(expectation).toEqual(data.body);
+    });
+
+
+
+
+
+
     test('delete one favorite', async() => {
 
       const deletedFavorite = 
@@ -125,7 +149,6 @@ describe('app routes', () => {
           owner_id: 2,
           title: 'Rainbow Pizza'
         };
-
 
       const data = await fakeRequest(app)
         .delete(`/api/favorites/${deletedFavorite.giphy_id}`)
