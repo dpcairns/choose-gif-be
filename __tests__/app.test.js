@@ -105,9 +105,6 @@ describe('app routes', () => {
       expect(expectation).toEqual(data.body);
     });
 
-
-
-
     test('get one favorite by id', async() => {
 
       const expectation = 
@@ -126,11 +123,6 @@ describe('app routes', () => {
 
       expect(expectation).toEqual(data.body);
     });
-
-
-
-
-
 
     test('delete one favorite', async() => {
 
@@ -164,6 +156,32 @@ describe('app routes', () => {
         .expect(200);
 
       expect(expectation).toEqual(data.body);
+    });
+
+
+    test('get search results from search bar', async() => {
+
+      // const searchTerm = 'cart';
+      
+      const expectation = true;
+
+      let isTrue = false;
+
+      
+      const data = await fakeRequest(app)
+        .get('/search?query=cart')
+        // .set('Authorization', token)
+        // .send(searchTerm)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      if(data.body.data[0].id && data.body.data[0].title) {
+        isTrue = true;
+      } else {
+        isTrue = false;
+      }
+
+      expect(expectation).toEqual(isTrue);
     });
 
 
