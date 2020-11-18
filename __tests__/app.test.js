@@ -158,20 +158,14 @@ describe('app routes', () => {
       expect(expectation).toEqual(data.body);
     });
 
-
     test('get search results from search bar', async() => {
 
-      // const searchTerm = 'cart';
-      
       const expectation = true;
 
       let isTrue = false;
-
       
       const data = await fakeRequest(app)
         .get('/search?query=cart')
-        // .set('Authorization', token)
-        // .send(searchTerm)
         .expect('Content-Type', /json/)
         .expect(200);
 
