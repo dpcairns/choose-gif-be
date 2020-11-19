@@ -259,6 +259,30 @@ describe('app routes', () => {
     });
 
 
+    test('return GIFs based on string of IDs', async() => {
+
+      const expectation = true;
+
+      const str = ',Y7UQMN2dz2sBq,yy6hXyy2DsM5W,l0EwXVZspYdjkXh1S';
+
+      let isTrue = false;
+      
+      const data = await fakeRequest(app)
+        .get(`/api/giphy-favorites/${str}`)
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      if(data.body.data[0].id && data.body.data[0].title && data.body.data.length === 3) {
+        isTrue = true;
+      } else {
+        isTrue = false;
+      }
+
+      expect(expectation).toEqual(isTrue);
+    });
+
+
 
 
 
