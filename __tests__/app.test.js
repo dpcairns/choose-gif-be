@@ -5,7 +5,7 @@ const { execSync } = require('child_process');
 const fakeRequest = require('supertest');
 const app = require('../lib/app');
 const client = require('../lib/client');
-
+// happy to see tests here!
 describe('app routes', () => {
   describe('routes', () => {
     let token;
@@ -281,16 +281,5 @@ describe('app routes', () => {
 
       expect(expectation).toEqual(isTrue);
     });
-
-
-
-
-
-
-
-
-
-
-
   });
 });
